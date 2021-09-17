@@ -6,6 +6,9 @@ class Fruit():
     def __init__(self):
         self.flavour, self.colour = random.choice(self.varieties)
 
+    def __repr__(self):
+        return f"<{self.flavour}, {self.colour}, {self.__class__.__name__}>"
+
 class Apple(Fruit):
     varieties = [('sour', 'green'), ('sweet', 'red')]
 
@@ -17,6 +20,18 @@ class Pear(Fruit):
 class Tree():
     def __init__(self):
         self.fruits = []
+
+    def __repr__(self):
+        return f"{self.fruit_type.__name__} tree"
+
+    def blossom(self):
+        for i in range(self.fecundity):
+            self.fruits.append(self.fruit_type())
+
+    def harvest(self):
+        crop = self.fruits
+        self.fruits = []
+        return crop
 
 class AppleTree(Tree):
     fecundity = 8
@@ -38,3 +53,6 @@ class Cider():
         }
         for fruit in fruitlist:
             self.flavour[fruit.flavour] += 1
+
+    def __repr__(self):
+        return f"A barrel of {max(self.flavour, key=lambda key: self.flavour[key])} cider"
